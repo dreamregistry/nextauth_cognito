@@ -1,5 +1,5 @@
 terraform {
-    backend "s3" {}
+  backend "s3" {}
 
   required_providers {
     random = {
@@ -37,11 +37,12 @@ resource "aws_cognito_user_pool_client" "client" {
 
   user_pool_id = aws_cognito_user_pool.pool.id
 
-  generate_secret              = true
-  callback_urls                = ["http://localhost:3000/api/auth/callback/cognito"]
-  allowed_oauth_flows          = ["code"]
-  allowed_oauth_scopes         = ["email", "openid", "profile"]
-  supported_identity_providers = ["COGNITO"]
+  generate_secret                      = true
+  callback_urls                        = ["http://localhost:3000/api/auth/callback/cognito"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_scopes                 = ["email", "openid", "profile"]
+  supported_identity_providers         = ["COGNITO"]
 }
 
 output "COGNITO_CLIENT_ID" {
