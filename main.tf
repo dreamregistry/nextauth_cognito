@@ -70,5 +70,5 @@ output "COGNITO_BASE_URL" {
 
 output "LOGOUT_URL" {
   sensitive = true
-  value     = aws_cognito_user_pool_client.client.logout_urls[0]
+  value     = "http://localhost:3000/auth/logout"
 }
