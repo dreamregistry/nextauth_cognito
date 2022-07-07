@@ -1,5 +1,5 @@
 terraform {
-  #  backend "s3" {}
+    backend "s3" {}
 
   required_providers {
     random = {
@@ -21,6 +21,13 @@ resource "random_pet" "pool_name" {}
 
 resource "aws_cognito_user_pool" "pool" {
   name = random_pet.pool_name.id
+}
+
+resource "random_pet" "domain_prefix" {}
+
+resource "aws_cognito_user_pool_domain" "main" {
+  domain       = random_pet.domain_prefix.id
+  user_pool_id = aws_cognito_user_pool.pool.id
 }
 
 resource "random_pet" "client_name" {}
