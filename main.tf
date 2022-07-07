@@ -39,6 +39,7 @@ resource "aws_cognito_user_pool_client" "client" {
 
   generate_secret                      = true
   callback_urls                        = ["http://localhost:3000/api/auth/callback/cognito"]
+  logout_urls                          = ["http://localhost:3000/auth/logout"]
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows                  = ["code"]
   allowed_oauth_scopes                 = ["email", "openid", "profile"]
@@ -64,5 +65,10 @@ data "aws_region" "current" {}
 
 output "COGNITO_BASE_URL" {
   sensitive = true
-  value = "https://${aws_cognito_user_pool_domain.main.domain}.auth.${data.aws_region.current.id}.amazoncognito.com"
+  value     = "https://${aws_cognito_user_pool_domain.main.domain}.auth.${data.aws_region.current.id}.amazoncognito.com"
+}
+
+output "LOGOUT_URL" {
+  sensitive = true
+  value     = aws_cognito_user_pool_client.client.logout_urls[0]
 }
