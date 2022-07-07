@@ -59,3 +59,10 @@ output "COGNITO_ISSUER" {
   sensitive = true
   value     = "https://${aws_cognito_user_pool.pool.endpoint}"
 }
+
+data "aws_region" "current" {}
+
+output "COGNITO_BASE_URL" {
+  sensitive = true
+  value = "https://${aws_cognito_user_pool_domain.main.domain}.auth.${data.aws_region.current.id}.amazoncognito.com"
+}
