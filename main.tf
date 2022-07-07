@@ -68,7 +68,7 @@ output "COGNITO_BASE_URL" {
   value     = "https://${aws_cognito_user_pool_domain.main.domain}.auth.${data.aws_region.current.id}.amazoncognito.com"
 }
 
-output "LOGOUT_URL" {
+output "COGNITO_LOGOUT_URL" {
   sensitive = true
-  value     = "http://localhost:3000/auth/logout"
+  value     = "https://${aws_cognito_user_pool_domain.main.domain}.auth.${data.aws_region.current.id}.amazoncognito.com/logout?client_id=${aws_cognito_user_pool_client.client.id}&logout_uri=${urlencode("http://localhost:3000/auth/logout")}"
 }
